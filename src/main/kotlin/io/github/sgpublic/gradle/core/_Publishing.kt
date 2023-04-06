@@ -23,7 +23,7 @@ private fun applyPublishing(project: Project, type: String) {
         if (it.isEmpty()) return
     }
 
-    val rootName = PublishingPlugin.findProperty("publising.name")
+    val rootName = PublishingPlugin.findProperty("publising.project.name")
         ?: PublishingPlugin.ROOT_PROJECT.name
     val taskName = rootName + project.name.split("-")
         .map { it.capitalized() }

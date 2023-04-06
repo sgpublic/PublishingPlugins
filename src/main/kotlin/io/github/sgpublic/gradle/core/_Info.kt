@@ -1,8 +1,9 @@
 package io.github.sgpublic.gradle.core
 
+import io.github.sgpublic.gradle.base.PublishingPlugin
 import org.gradle.api.Project
 
 fun Project.applyInfo() {
-    version = findProperty("publising.version")
-        ?: throw IllegalStateException("Unkonwn XXPreference version!")
+    group = PublishingPlugin.assertProperty("publising.project.group")
+    version = PublishingPlugin.assertProperty("publising.project.version")
 }
