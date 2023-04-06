@@ -22,9 +22,9 @@ object ApkUtil {
                 meta.revisionCode
                 if (name.contains(BuildTypes.TYPE_RELEASE)) {
                     return@let " V${meta.versionName}(${meta.versionCode})"
-                } else if (name.contains(BuildTypes.TYPE_DEV)) {
+                } else if (name.contains(BuildTypes.TYPE_BETA)) {
                     return@let "_${meta.versionName}"
-                } else if (name.contains(BuildTypes.TYPE_SNAPSHOT)) {
+                } else if (name.contains(BuildTypes.TYPE_ALPHA)) {
                     return@let "_${meta.versionName}"
                 } else {
                     return
