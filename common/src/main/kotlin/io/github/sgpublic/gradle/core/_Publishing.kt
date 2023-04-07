@@ -1,9 +1,10 @@
 package io.github.sgpublic.gradle.core
 
+import io.github.sgpublic.gradle.util.assertStringProperty
+import io.github.sgpublic.gradle.util.findStringProperty
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import io.github.sgpublic.gradle.base.PublishingPlugin
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.plugins.signing.SigningExtension
 
@@ -22,8 +23,8 @@ private fun applyPublishing(project: Project, type: String) {
         if (it.isEmpty()) return
     }
 
-    val rootName = PublishingPlugin.findProperty("publising.project.name")
-        ?: PublishingPlugin.ROOT_PROJECT.name
+    val rootName = project.findStringProperty("publising.project.name")
+        ?: project.rootProject.name
     val taskName = rootName + project.name.split("-")
         .map { it.capitalized() }
         .joinToString("")
@@ -39,38 +40,38 @@ private fun applyPublishing(project: Project, type: String) {
                 pom {
                     name.set(projectName)
                     description.set(projectName)
-                    PublishingPlugin.findProperty("publising.url")?.let {
+                    project.findStringProperty("publising.url")?.let {
                         url.set(it)
                     }
 
-                    PublishingPlugin.findProperty("publising.license.name")?.let {
+                    project.findStringProperty("publising.license.name")?.let {
                         licenses {
                             license {
                                 name.set(it)
-                                PublishingPlugin.findProperty("publising.license.url")?.let {
+                                project.findStringProperty("publising.license.url")?.let {
                                     url.set(it)
                                 }
                             }
                         }
                     }
 
-                    PublishingPlugin.findProperty("publising.issue.system")?.let {
+                    project.findStringProperty("publising.issue.system")?.let {
                         issueManagement {
                             system.set(it)
-                            url.set(PublishingPlugin.assertProperty("publising.issue.url"))
+                            url.set(project.assertStringProperty("publising.issue.url"))
                         }
                     }
                     scm {
-                        connection.set(PublishingPlugin.assertProperty("publising.smc.connection"))
-                        developerConnection.set(PublishingPlugin.assertProperty("publising.smc.developerConnection"))
-                        url.set(PublishingPlugin.assertProperty("publising.smc.url"))
+                        connection.set(project.assertStringProperty("publising.smc.connection"))
+                        developerConnection.set(project.assertStringProperty("publising.smc.developerConnection"))
+                        url.set(project.assertStringProperty("publising.smc.url"))
                     }
-                    PublishingPlugin.findProperty("publising.developer.id")?.let {
+                    project.findStringProperty("publising.developer.id")?.let {
                         developers {
                             developer {
                                 id.set(it)
-                                name.set(PublishingPlugin.assertProperty("publising.developer.name"))
-                                email.set(PublishingPlugin.assertProperty("publising.developer.email"))
+                                name.set(project.assertStringProperty("publising.developer.name"))
+                                email.set(project.assertStringProperty("publising.developer.email"))
                             }
                         }
                     }

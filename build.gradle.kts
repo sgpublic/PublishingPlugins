@@ -3,10 +3,9 @@ plugins {
     kotlin("jvm") version kotlinVer apply false
 
     `kotlin-dsl` apply false
-}
 
-group = "io.github.sgpublic"
-version = "0.1.0"
+    id("com.gradle.plugin-publish") version "1.1.0" apply false
+}
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {

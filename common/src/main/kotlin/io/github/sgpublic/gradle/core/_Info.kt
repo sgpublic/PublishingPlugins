@@ -1,9 +1,9 @@
 package io.github.sgpublic.gradle.core
 
-import io.github.sgpublic.gradle.base.PublishingPlugin
+import io.github.sgpublic.gradle.util.assertStringProperty
 import org.gradle.api.Project
 
 fun Project.applyInfo() {
-    group = PublishingPlugin.assertProperty("publising.project.group")
-    version = PublishingPlugin.assertProperty("publising.project.version")
+    group = assertStringProperty("publising.project.group")
+    version = assertStringProperty("publising.project.version")
 }

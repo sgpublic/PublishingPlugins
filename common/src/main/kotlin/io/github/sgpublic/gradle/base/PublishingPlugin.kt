@@ -19,13 +19,5 @@ abstract class PublishingPlugin: Plugin<Project> {
     companion object {
         lateinit var ROOT_PROJECT: Project private set
         lateinit var LOGGER: Logger private set
-
-        fun findProperty(name: String): String? {
-            return ROOT_PROJECT.findProperty(name)?.toString()
-        }
-
-        fun assertProperty(name: String): String {
-            return findProperty(name) ?: throw GradleException("\"$name\" not set, please set it in gradle.propertise")
-        }
     }
 }
