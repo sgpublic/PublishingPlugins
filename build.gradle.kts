@@ -1,29 +1,15 @@
 plugins {
-    `kotlin-dsl`
+    val kotlinVer = "1.5.31"
+    kotlin("jvm") version kotlinVer apply false
+
+    `kotlin-dsl` apply false
 }
 
-repositories {
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-}
+group = "io.github.sgpublic"
+version = "0.1.0"
 
-dependencies {
-    // https://mvnrepository.com/artifact/net.dongliu/apk-parser
-    implementation("net.dongliu:apk-parser:2.6.10")
-}
-
-sourceSets {
-    getByName("main") {
-        java {
-            srcDirs.add(
-                rootProject.file("buildSrcExt/src")
-            )
-        }
-        resources {
-            srcDirs.add(
-                rootProject.file("buildSrcExt/res")
-            )
-        }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
