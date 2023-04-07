@@ -22,6 +22,9 @@ gradlePlugin {
         create("gradleJavaPublish") {
             id = "${assertStringProperty("publising.project.group")}.java-publish"
             implementationClass = "io.github.sgpublic.gradle.JavaPublishingPlugin"
+            displayName = "Plugin for Java publishing"
+            description = "Use this plugin to distribute Java library with minimal code."
+            tags.set(listOf("java-library", "maven-publish"))
         }
     }
 }

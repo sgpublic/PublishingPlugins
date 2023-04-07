@@ -23,6 +23,9 @@ gradlePlugin {
         create("gradleAndroidAssemble") {
             id = "${assertStringProperty("publising.project.group")}.android-assemble"
             implementationClass = "io.github.sgpublic.gradle.AndroidAssemblePlugin"
+            displayName = "Plugin for apk and aar packaging"
+            description = "A plugin that provides extension capabilities for apk and aar packaging"
+            tags.set(listOf("android"))
         }
     }
 }
