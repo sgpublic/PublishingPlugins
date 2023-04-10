@@ -40,7 +40,7 @@ private fun applyPublishing(project: Project, type: String) {
                 pom {
                     name.set(projectName)
                     description.set(projectName)
-                    project.findStringProperty("publising.url")?.let {
+                    project.findStringProperty("publising.project.url")?.let {
                         url.set(it)
                     }
 
