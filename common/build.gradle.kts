@@ -1,7 +1,11 @@
+import io.github.sgpublic.gradle.applyProjectInfo
+
 plugins {
     kotlin("jvm")
     `kotlin-dsl`
 }
+
+applyProjectInfo()
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
