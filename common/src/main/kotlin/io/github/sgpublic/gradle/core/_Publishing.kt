@@ -28,7 +28,7 @@ private fun applyPublishing(project: Project, type: String) {
     val taskName = rootName + project.name.split("-")
         .map { it.capitalized() }
         .joinToString("")
-    val projectName = rootName.toLowerCase() + "-" + project.name
+    val projectName = rootName.lowercase() + "-" + project.name
 
     project.extensions.configure<PublishingExtension>("publishing") {
         publications {

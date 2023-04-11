@@ -6,9 +6,3 @@ plugins {
 
     id("com.gradle.plugin-publish") version "1.1.0" apply false
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-}
