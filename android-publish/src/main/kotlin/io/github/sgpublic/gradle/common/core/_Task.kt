@@ -1,8 +1,7 @@
-package io.github.sgpublic.gradle.core
+package io.github.sgpublic.gradle.common.core
 
-import io.github.sgpublic.gradle.base.PublishingPlugin
+import io.github.sgpublic.gradle.common.base.PublishingPlugin
 import org.gradle.api.Action
-import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
 import java.util.regex.Pattern

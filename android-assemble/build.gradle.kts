@@ -1,9 +1,10 @@
-import io.github.sgpublic.gradle.assertStringProperty
 import io.github.sgpublic.gradle.gradlePluginPublish
 
 plugins {
+    id("java")
     kotlin("jvm")
 
+    `java-gradle-plugin`
     id("com.gradle.plugin-publish")
 }
 

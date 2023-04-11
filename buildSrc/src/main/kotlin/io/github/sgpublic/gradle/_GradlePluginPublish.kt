@@ -25,3 +25,11 @@ fun Project.gradlePluginPublish(id: String, call: PluginDeclaration.() -> Unit) 
         }
     }
 }
+
+fun Project.applyCommonSourceSets() {
+    project.extensions.configure<GradlePluginDevelopmentExtension>("gradlePlugin") {
+        pluginSourceSet.java {
+            srcDir(rootProject.findProject(":common")!!.file("src/main/kotlin"))
+        }
+    }
+}

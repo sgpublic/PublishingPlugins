@@ -18,4 +18,3 @@ rootProject.name = "buildSrc"
 include("android-publish")
 include("java-publish")
 include("android-assemble")
-include("common")

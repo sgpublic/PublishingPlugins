@@ -1,6 +1,6 @@
-package io.github.sgpublic.gradle.utils
+package io.github.sgpublic.gradle.common.utils
 
-import io.github.sgpublic.gradle.base.PublishingPlugin
+import io.github.sgpublic.gradle.common.base.PublishingPlugin
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
 

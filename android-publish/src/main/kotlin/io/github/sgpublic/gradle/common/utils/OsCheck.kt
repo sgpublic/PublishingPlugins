@@ -1,4 +1,4 @@
-package io.github.sgpublic.gradle.utils
+package io.github.sgpublic.gradle.common.utils
 
 object OsCheck {
     val isWindows: Boolean get() {

@@ -1,6 +1,6 @@
-package io.github.sgpublic.gradle.core
+package io.github.sgpublic.gradle.common.core
 
-import io.github.sgpublic.gradle.util.assertStringProperty
+import io.github.sgpublic.gradle.common.util.assertStringProperty
 import org.gradle.api.Project
 
 fun Project.applyInfo() {

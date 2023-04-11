@@ -1,17 +1,12 @@
-import io.github.sgpublic.gradle.applyProjectInfo
-import io.github.sgpublic.gradle.assertStringProperty
 import io.github.sgpublic.gradle.gradlePluginPublish
 
 plugins {
+    id("java")
     kotlin("jvm")
+    `kotlin-dsl`
 
+    `java-gradle-plugin`
     id("com.gradle.plugin-publish")
-}
-
-applyProjectInfo()
-
-dependencies {
-    implementation(project(":common"))
 }
 
 gradlePluginPublish("android-publish") {

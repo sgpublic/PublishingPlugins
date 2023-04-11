@@ -1,13 +1,12 @@
 import io.github.sgpublic.gradle.gradlePluginPublish
 
 plugins {
+    id("java")
     kotlin("jvm")
+    `kotlin-dsl`
 
+    `java-gradle-plugin`
     id("com.gradle.plugin-publish")
-}
-
-dependencies {
-    implementation(project(":common"))
 }
 
 gradlePluginPublish("java-publish") {

@@ -1,6 +1,6 @@
-package io.github.sgpublic.gradle.base
+package io.github.sgpublic.gradle.common.base
 
-import io.github.sgpublic.gradle.core.applyInfo
+import io.github.sgpublic.gradle.common.core.applyInfo
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project

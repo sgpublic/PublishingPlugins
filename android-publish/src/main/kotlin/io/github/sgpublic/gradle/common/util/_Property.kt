@@ -1,4 +1,4 @@
-package io.github.sgpublic.gradle.util
+package io.github.sgpublic.gradle.common.util
 
 import org.gradle.api.GradleException
 import org.gradle.api.Project
