@@ -1,4 +1,4 @@
-//import io.github.sgpublic.gradle.gradlePluginPublish
+import io.github.sgpublic.gradle.gradlePluginPublish
 
 plugins {
     kotlin("jvm")
@@ -8,12 +8,12 @@ plugins {
     id("com.gradle.plugin-publish")
 }
 
-//gradlePluginPublish("java-publish") {
-//    implementationClass = "io.github.sgpublic.gradle.JavaPublishingPlugin"
-//    displayName = "Plugin for Java publishing"
-//    description = "Use this plugin to distribute Java library with minimal code."
-//    tags.set(listOf("java-library", "maven-publish"))
-//}
+gradlePluginPublish("java-publish") {
+    implementationClass = "io.github.sgpublic.gradle.JavaPublishingPlugin"
+    displayName = "Plugin for Java publishing"
+    description = "Use this plugin to distribute Java library with minimal code."
+    tags.set(listOf("java-library", "maven-publish"))
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
