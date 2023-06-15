@@ -34,9 +34,9 @@ private fun applyPublishing(project: Project, type: String) {
     project.extensions.configure<PublishingExtension>("publishing") {
         publications {
             register(taskName, MavenPublication::class.java) {
-                groupId = project.group.toString()
+                groupId = project.assertStringProperty("publising.project.group")
+                version = project.libVersion
                 artifactId = projectName
-                version = project.version.toString()
 
                 pom {
                     name.set(projectName)

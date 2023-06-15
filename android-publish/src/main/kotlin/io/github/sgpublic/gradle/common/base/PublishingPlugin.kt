@@ -1,7 +1,5 @@
 package io.github.sgpublic.gradle.common.base
 
-import io.github.sgpublic.gradle.common.core.applyInfo
-import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
@@ -10,7 +8,6 @@ abstract class PublishingPlugin: Plugin<Project> {
     final override fun apply(target: Project) {
         ROOT_PROJECT = target.rootProject
         LOGGER = target.logger
-        target.applyInfo()
         configPublishing(target)
     }
 

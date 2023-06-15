@@ -1,3 +1,4 @@
+import io.github.sgpublic.gradle.findStringProperty
 import io.github.sgpublic.gradle.gradlePluginPublish
 
 plugins {
@@ -6,6 +7,22 @@ plugins {
 
     `java-gradle-plugin`
     id("com.gradle.plugin-publish")
+}
+
+findStringProperty("publising.gitlab.host")?.let {  gitlabHost ->
+    publishing {
+        repositories {
+            maven {
+                setUrl("https://${gitlabHost}" +
+                        "/api/v4/projects/${findStringProperty("publising.gitlab.projectId")}" +
+                        "/packages/maven")
+                credentials {
+                    username = findStringProperty("publising.gitlab.username")
+                    password = findStringProperty("publising.gitlab.password")
+                }
+            }
+        }
+    }
 }
 
 gradlePluginPublish("android-publish") {

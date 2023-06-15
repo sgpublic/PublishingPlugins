@@ -28,14 +28,15 @@ private fun applyPublishing(project: Project, type: String) {
     val taskName = rootName + project.name.split("-")
         .map { it.capitalized() }
         .joinToString("")
-    val projectName = rootName.toLowerCase() + "-" + project.name
+    val projectName = project.findStringProperty("publising.project.${project.name}.name")
+        ?: (rootName.toLowerCase() + "-" + project.name)
 
     project.extensions.configure<PublishingExtension>("publishing") {
         publications {
             register(taskName, MavenPublication::class.java) {
-                groupId = project.group.toString()
+                groupId = project.assertStringProperty("publising.project.group")
+                version = project.libVersion
                 artifactId = projectName
-                version = project.version.toString()
 
                 pom {
                     name.set(projectName)
