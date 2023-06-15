@@ -15,5 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "PublishingPlugins"
 
-include("android-publish")
-include("java-publish")
