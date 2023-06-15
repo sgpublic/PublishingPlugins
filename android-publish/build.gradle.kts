@@ -16,9 +16,12 @@ findStringProperty("publising.gitlab.host")?.let {  gitlabHost ->
                 setUrl("https://${gitlabHost}" +
                         "/api/v4/projects/${findStringProperty("publising.gitlab.projectId")}" +
                         "/packages/maven")
-                credentials {
-                    username = findStringProperty("publising.gitlab.username")
-                    password = findStringProperty("publising.gitlab.password")
+                credentials(HttpHeaderCredentials::class) {
+                    name = "Private-Token"
+                    value = findStringProperty("publising.gitlab.token")
+                }
+                authentication {
+                    create("header", HttpHeaderAuthentication::class)
                 }
             }
         }
