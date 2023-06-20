@@ -56,14 +56,14 @@ gradlePlugin {
     plugins {
         create("gradleJavaPublish") {
             this.id = "${group}.java-publish"
-            implementationClass = "io.github.sgpublic.gradle.JavaPublishingPlugin"
+            implementationClass = "io.github.sgpublic.publishingplugin.JavaPublishingPlugin"
             displayName = "Plugin for Java publishing"
             description = "Use this plugin to distribute Java library with minimal code."
             tags.set(listOf("java-library", "maven-publish"))
         }
         create("gradleAndroidPublish") {
             this.id = "${group}.android-publish"
-            implementationClass = "io.github.sgpublic.gradle.AndroidPublishingPlugin"
+            implementationClass = "io.github.sgpublic.publishingplugin.AndroidPublishingPlugin"
             displayName = "Plugin for Android publishing"
             description = "Use this plugin to distribute Android library with minimal code."
             tags.set(listOf("android-library", "maven-publish"))
