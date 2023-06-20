@@ -3,10 +3,14 @@ package io.github.sgpublic.publishingplugin.core
 import io.github.sgpublic.publishingplugin.util.assertStringProperty
 import io.github.sgpublic.publishingplugin.util.findStringProperty
 import org.gradle.api.Project
+import org.gradle.api.credentials.HttpHeaderCredentials
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.authentication.http.HttpHeaderAuthentication
 import org.gradle.configurationcache.extensions.capitalized
+import org.gradle.kotlin.dsl.create
 import org.gradle.plugins.signing.SigningExtension
+import java.net.URI
 
 fun Project.applyJavaPublishing() {
     applyPublishing(this, "java")
@@ -86,13 +90,29 @@ private fun applyPublishing(project: Project, type: String) {
             maven {
                 name = "ossrh"
                 url = if (project.version.toString().endsWith("-SNAPSHOT")) {
-                    java.net.URI.create("https://oss.sonatype.org/content/repositories/snapshots")
+                    URI.create("https://oss.sonatype.org/content/repositories/snapshots")
                 } else {
-                    java.net.URI.create("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                    URI.create("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                 }
                 credentials {
                     username = publishing_username
                     password = publishing_password
+                }
+            }
+
+            project.findStringProperty("publising.gitlab.host")?.let { host ->
+                maven {
+                    name = "gitlab"
+                    url = URI.create("https://$host/api/v4/projects/" +
+                            project.assertStringProperty("publising.gitlab.projectId") +
+                            "/packages/maven")
+                    credentials(HttpHeaderCredentials::class.java) {
+                        name = "Private-Token"
+                        value = project.assertStringProperty("publising.gitlab.token")
+                    }
+                    authentication {
+                        create("header", HttpHeaderAuthentication::class)
+                    }
                 }
             }
         }

@@ -33,8 +33,9 @@ findProperty("publising.gitlab.host")?.toString()?.let { gitlabHost ->
     publishing {
         repositories {
             maven {
-                setUrl("https://${gitlabHost}" +
-                        "/api/v4/projects/${findProperty("publising.gitlab.projectId")}" +
+                name = "gitlab"
+                setUrl("https://${gitlabHost}/api/v4/projects/" +
+                        findProperty("publising.gitlab.projectId") +
                         "/packages/maven")
                 credentials(HttpHeaderCredentials::class.java) {
                     name = "Private-Token"
