@@ -27,8 +27,8 @@ Once the plugin is added, you will need to add the following fields to either th
 + Nexus Repository Manager Auth
 
   ```properties
-  publising.username=xxx
-  publising.password=xxx
+  publishing.username=xxx
+  publishing.password=xxx
   ```
 
   [Nexus Repository Manager](https://oss.sonatype.org/) login username and password are required for the plugin to function, and must be added after these fields are added.
@@ -46,20 +46,20 @@ Once the plugin is added, you will need to add the following fields to either th
 + Publishing
 
   ```properties
-  publising.project.group=com.example
-  publising.project.version=1.0.0-example
-  publising.project.name=example # (Optional) Project name. If not set, the rootProject.name value in Gradle will be used.
-  publising.project.url=https://github.com/example/project
-  publising.developer.id=xxx
-  publising.developer.name=xxx
-  publising.developer.email=publish@example.com
-  publising.license.name=The Apache License, Version 2.0
-  publising.license.url=http://www.apache.org/licenses/LICENSE-2.0.txt
-  publising.issue.system=GitHub
-  publising.issue.url=https://github.com/example/project/issues
-  publising.smc.connection=scm:git:git://github.com/example/project.git
-  publising.smc.developerConnection=scm:git:git@github.com:example/project.git
-  publising.smc.url=https://github.com/example/project
+  publishing.project.group=com.example
+  publishing.project.version=1.0.0-example
+  publishing.project.name=example # (Optional) Project name. If not set, the rootProject.name value in Gradle will be used.
+  publishing.project.url=https://github.com/example/project
+  publishing.developer.id=xxx
+  publishing.developer.name=xxx
+  publishing.developer.email=publish@example.com
+  publishing.license.name=The Apache License, Version 2.0
+  publishing.license.url=http://www.apache.org/licenses/LICENSE-2.0.txt
+  publishing.issue.system=GitHub
+  publishing.issue.url=https://github.com/example/project/issues
+  publishing.smc.connection=scm:git:git://github.com/example/project.git
+  publishing.smc.developerConnection=scm:git:git@github.com:example/project.git
+  publishing.smc.url=https://github.com/example/project
   ```
 
   These parameters will be used to configure the `maven-publish` plugin. For details on how to configure the plugin, please refer to the [official documentation](https://docs.gradle.org/current/userguide/publishing_maven.html).
@@ -77,7 +77,7 @@ library-project
 And `publishing.project.name` is set to `example`:
 
 ```properties
-publising.project.name=example
+publishing.project.name=example
 ```
 
 Next, the plugin will add the following Gradle tasks for your project:

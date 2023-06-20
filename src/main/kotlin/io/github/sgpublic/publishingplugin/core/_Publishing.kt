@@ -21,62 +21,62 @@ fun Project.applyAndroidPublishing() {
 }
 
 private fun applyPublishing(project: Project, type: String) {
-    val publishing_username = (project.findProperty("publising.username") ?: return).toString()
-    val publishing_password = (project.findProperty("publising.password") ?: return).toString()
+    val publishing_username = (project.findProperty("publishing.username") ?: return).toString()
+    val publishing_password = (project.findProperty("publishing.password") ?: return).toString()
     project.properties.keys.filter { it.startsWith("signing.") }.let {
         if (it.isEmpty()) return
     }
 
-    val rootName = project.findStringProperty("publising.project.name")
+    val rootName = project.findStringProperty("publishing.project.name")
         ?: project.rootProject.name
     val taskName = rootName + project.name.split("-")
         .map { it.capitalized() }
         .joinToString("")
-    val projectName = project.findStringProperty("publising.project.${project.name}.name")
+    val projectName = project.findStringProperty("publishing.project.${project.name}.name")
         ?: (rootName.toLowerCase() + "-" + project.name)
 
     project.extensions.configure<PublishingExtension>("publishing") {
         publications {
             register(taskName, MavenPublication::class.java) {
-                groupId = project.assertStringProperty("publising.project.group")
+                groupId = project.assertStringProperty("publishing.project.group")
                 version = project.libVersion
                 artifactId = projectName
 
                 pom {
                     name.set(projectName)
                     description.set(projectName)
-                    project.findStringProperty("publising.project.url")?.let {
+                    project.findStringProperty("publishing.project.url")?.let {
                         url.set(it)
                     }
 
-                    project.findStringProperty("publising.license.name")?.let {
+                    project.findStringProperty("publishing.license.name")?.let {
                         licenses {
                             license {
                                 name.set(it)
-                                project.findStringProperty("publising.license.url")?.let {
+                                project.findStringProperty("publishing.license.url")?.let {
                                     url.set(it)
                                 }
                             }
                         }
                     }
 
-                    project.findStringProperty("publising.issue.system")?.let {
+                    project.findStringProperty("publishing.issue.system")?.let {
                         issueManagement {
                             system.set(it)
-                            url.set(project.assertStringProperty("publising.issue.url"))
+                            url.set(project.assertStringProperty("publishing.issue.url"))
                         }
                     }
                     scm {
-                        connection.set(project.assertStringProperty("publising.smc.connection"))
-                        developerConnection.set(project.assertStringProperty("publising.smc.developerConnection"))
-                        url.set(project.assertStringProperty("publising.smc.url"))
+                        connection.set(project.assertStringProperty("publishing.smc.connection"))
+                        developerConnection.set(project.assertStringProperty("publishing.smc.developerConnection"))
+                        url.set(project.assertStringProperty("publishing.smc.url"))
                     }
-                    project.findStringProperty("publising.developer.id")?.let {
+                    project.findStringProperty("publishing.developer.id")?.let {
                         developers {
                             developer {
                                 id.set(it)
-                                name.set(project.assertStringProperty("publising.developer.name"))
-                                email.set(project.assertStringProperty("publising.developer.email"))
+                                name.set(project.assertStringProperty("publishing.developer.name"))
+                                email.set(project.assertStringProperty("publishing.developer.email"))
                             }
                         }
                     }
@@ -100,15 +100,15 @@ private fun applyPublishing(project: Project, type: String) {
                 }
             }
 
-            project.findStringProperty("publising.gitlab.host")?.let { host ->
+            project.findStringProperty("publishing.gitlab.host")?.let { host ->
                 maven {
                     name = "gitlab"
                     url = URI.create("https://$host/api/v4/projects/" +
-                            project.assertStringProperty("publising.gitlab.projectId") +
+                            project.assertStringProperty("publishing.gitlab.projectId") +
                             "/packages/maven")
                     credentials(HttpHeaderCredentials::class.java) {
                         name = "Private-Token"
-                        value = project.assertStringProperty("publising.gitlab.token")
+                        value = project.assertStringProperty("publishing.gitlab.token")
                     }
                     authentication {
                         create("header", HttpHeaderAuthentication::class)
