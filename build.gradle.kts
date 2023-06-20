@@ -29,23 +29,9 @@ tasks.test {
     useJUnitPlatform()
 }
 
-findProperty("publishing.gitlab.host")?.toString()?.let { gitlabHost ->
-    publishing {
-        repositories {
-            maven {
-                name = "gitlab"
-                setUrl("https://${gitlabHost}/api/v4/projects/" +
-                        findProperty("publishing.gitlab.projectId") +
-                        "/packages/maven")
-                credentials(HttpHeaderCredentials::class.java) {
-                    name = "Private-Token"
-                    value = findProperty("publishing.gitlab.token")?.toString()
-                }
-                authentication {
-                    create("header", HttpHeaderAuthentication::class)
-                }
-            }
-        }
+publishing {
+    repositories {
+        mavenLocal()
     }
 }
 
