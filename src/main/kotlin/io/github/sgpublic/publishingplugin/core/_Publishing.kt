@@ -100,12 +100,12 @@ private fun applyPublishing(project: Project, type: String) {
                 }
             }
 
-            project.findStringProperty("publishing.gitlab.host")?.let { host ->
+            val host = project.findStringProperty("publishing.gitlab.host")
+            val projectId = project.findStringProperty("publishing.gitlab.projectId")
+            host.takeIf { projectId != null }?.let {
                 maven {
                     name = "gitlab"
-                    url = URI.create("https://$host/api/v4/projects/" +
-                            project.assertStringProperty("publishing.gitlab.projectId") +
-                            "/packages/maven")
+                    url = URI.create("https://$it/api/v4/projects/$projectId/packages/maven")
                     credentials(HttpHeaderCredentials::class.java) {
                         name = "Private-Token"
                         value = project.assertStringProperty("publishing.gitlab.token")
