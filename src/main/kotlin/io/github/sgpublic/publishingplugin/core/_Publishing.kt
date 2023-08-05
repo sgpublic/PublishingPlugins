@@ -21,17 +21,17 @@ fun Project.applyAndroidPublishing() {
 }
 
 private fun applyPublishing(project: Project, type: String) {
-    val publishing_username = (project.findProperty("publishing.username") ?: return).toString()
-    val publishing_password = (project.findProperty("publishing.password") ?: return).toString()
     project.properties.keys.filter { it.startsWith("signing.") }.let {
         if (it.isEmpty()) return
     }
 
     val rootName = project.findStringProperty("publishing.project.name")
         ?: project.rootProject.name
-    val taskName = rootName + project.name.split("-")
-        .map { it.capitalized() }
-        .joinToString("")
+    val taskName = rootName + project.name
+        .split("-")
+        .joinToString("") {
+            it.capitalized()
+        }
     val projectName = project.findStringProperty("publishing.project.${project.name}.name")
         ?: (rootName.toLowerCase() + "-" + project.name)
 
@@ -87,25 +87,29 @@ private fun applyPublishing(project: Project, type: String) {
             }
         }
         repositories {
-            maven {
-                name = "ossrh"
-                url = if (project.version.toString().endsWith("-SNAPSHOT")) {
-                    URI.create("https://oss.sonatype.org/content/repositories/snapshots")
-                } else {
-                    URI.create("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-                }
-                credentials {
-                    username = publishing_username
-                    password = publishing_password
+            val publishing_username = project.findStringProperty("publishing.ossrh.username")
+            val publishing_password = project.findStringProperty("publishing.ossrh.password")
+            if (publishing_username != null && publishing_password != null) {
+                maven {
+                    name = "ossrh"
+                    url = if (project.version.toString().endsWith("-SNAPSHOT")) {
+                        URI.create("https://oss.sonatype.org/content/repositories/snapshots")
+                    } else {
+                        URI.create("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                    }
+                    credentials {
+                        username = publishing_username
+                        password = publishing_password
+                    }
                 }
             }
 
-            val host = project.findStringProperty("publishing.gitlab.host")
-            val projectId = project.findStringProperty("publishing.gitlab.projectId")
-            host.takeIf { projectId != null }?.let {
+            val gitlabHost = project.findStringProperty("publishing.gitlab.host")
+            val gitlabProjectId = project.findStringProperty("publishing.gitlab.projectId")
+            if (gitlabHost != null && gitlabProjectId != null) {
                 maven {
                     name = "gitlab"
-                    url = URI.create("https://$it/api/v4/projects/$projectId/packages/maven")
+                    url = URI.create("https://$gitlabHost/api/v4/projects/$gitlabProjectId/packages/maven")
                     credentials(HttpHeaderCredentials::class.java) {
                         name = "Private-Token"
                         value = project.assertStringProperty("publishing.gitlab.token")

@@ -12,11 +12,12 @@ This plugin is used to publish Android and Java libraries to Maven Central and i
 
 ```kotlin
 plugins {
-    id("maven-publish") // required
-    id("signing") // required
-    
-    id("io.github.sgpublic.android-publish") version "0.1.0"
-    id("io.github.sgpublic.java-publish") version "0.1.0"
+  id("maven-publish") // required
+  id("signing") // required
+
+  val publish = "$latest"
+  id("io.github.sgpublic.android-publish") version publish
+  id("io.github.sgpublic.java-publish") version publish
 }
 ```
 
@@ -27,8 +28,8 @@ Once the plugin is added, you will need to add the following fields to either th
 + Nexus Repository Manager Auth
 
   ```properties
-  publishing.username=xxx
-  publishing.password=xxx
+  publishing.ossrh.username=xxx
+  publishing.ossrh.password=xxx
   ```
 
   [Nexus Repository Manager](https://oss.sonatype.org/) login username and password are required for the plugin to function, and must be added after these fields are added.
