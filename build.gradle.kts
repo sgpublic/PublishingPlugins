@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.sgpublic"
-version = "1.0.0-alpha01"
+version = "1.0.0-alpha02"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
