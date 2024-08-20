@@ -11,8 +11,6 @@ import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.create
 import org.gradle.plugins.signing.SigningExtension
 import java.net.URI
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 fun Project.applyJavaPublishing() {
     applyPublishing(this, "java")
@@ -22,7 +20,6 @@ fun Project.applyAndroidPublishing() {
     applyPublishing(this, "release")
 }
 
-@OptIn(ExperimentalEncodingApi::class)
 private fun applyPublishing(project: Project, type: String) {
     project.properties.keys.filter { it.startsWith("signing.") }.let {
         if (it.isEmpty()) return
@@ -92,8 +89,7 @@ private fun applyPublishing(project: Project, type: String) {
         repositories {
             val publishing_username = project.findStringProperty("publishing.ossrh.username")
             val publishing_password = project.findStringProperty("publishing.ossrh.password")
-            val publishing_token = project.findStringProperty("publishing.ossrh.token")
-            if (publishing_username != null && (publishing_password != null || publishing_token != null)) {
+            if (publishing_username != null && publishing_password != null) {
                 maven {
                     name = "ossrh"
                     url = if (project.version.toString().endsWith("-SNAPSHOT")) {
@@ -101,16 +97,9 @@ private fun applyPublishing(project: Project, type: String) {
                     } else {
                         URI.create("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                     }
-                    if (publishing_token != null) {
-                        credentials(HttpHeaderCredentials::class.java) {
-                            name = "Authorization"
-                            value = "Bearer ${Base64.encode("${publishing_username}:${publishing_token}".toByteArray())}"
-                        }
-                    } else {
-                        credentials {
-                            username = publishing_username
-                            password = publishing_password
-                        }
+                    credentials {
+                        username = publishing_username
+                        password = publishing_password
                     }
                 }
             }
